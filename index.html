@@ -52,27 +52,28 @@
     <h1 id="t">Sales Reports</h1>
     <p id="sub">Weekly RFQs, offers, invoices, collections and customers. Due every Saturday 1:00 PM.</p>
     <div id="choose">
-      <a class="btn" id="go" href="#"><span id="goTxt">Sign in with your INOVEX account</span></a>
+      <a class="btn" id="go" href="#"><span id="goTxt">Open Sales Reports</span></a>
     </div>
     <div id="wait" hidden><div class="spin"></div><p id="msg" style="text-align:center">Opening Sales Reports…</p></div>
-    <div class="tip" id="tip"><b id="tipH">Several Google accounts in this browser?</b> <span id="tipT">Open this page in a private window and sign in only with your <bdi>@inovex-group.com</bdi> account, otherwise Google may say it cannot open the file.</span></div>
-    <div class="small"><span id="who">Only <bdi>@inovex-group.com</bdi> accounts can open it.</span><a id="site" href="https://www.inovex-group.com/">inovex-group.com</a></div>
+    <div class="tip" id="tip"><b id="tipH">How you sign in</b> <span id="tipT">INOVEX staff: your <bdi>@inovex-group.com</bdi> Google account signs you in. Registered users with another e-mail (e.g. Gmail): type your e-mail and enter the 6-digit code we send you. If Google says it cannot open the file, use a private window.</span></div>
+    <div class="small"><span id="who">For INOVEX staff and registered users.</span><a id="site" href="https://www.inovex-group.com/">inovex-group.com</a></div>
   </div>
 </main>
 <footer><span id="foot">© INOVEX Group LLC · Riyadh</span></footer>
 <script src="./config.js"></script>
 <script>
 (function () {
+  if (location.protocol === 'http:' && location.hostname !== 'localhost') { location.replace('https://' + location.host + location.pathname + location.search); return; }
   var C = window.CASH_CONFIG || {}, $ = function (i) { return document.getElementById(i); };
   var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
   var AR = {
     t: 'تقارير المبيعات',
     sub: 'طلبات العروض والعروض والفواتير والتحصيل والعملاء أسبوعياً. التسليم كل سبت الساعة 1:00 ظهراً.',
-    goTxt: 'تسجيل الدخول بحساب إينوفكس',
+    goTxt: 'فتح تقارير المبيعات',
     msg: 'جارٍ فتح تقارير المبيعات…',
-    tipH: 'هل في المتصفح عدة حسابات Google؟',
-    tipT: 'افتح هذه الصفحة في نافذة خاصة وسجّل الدخول بحساب <bdi dir="ltr">@inovex-group.com</bdi> فقط، وإلا قد يظهر Google رسالة بتعذّر فتح الملف.',
-    who: 'حسابات <bdi dir="ltr">@inovex-group.com</bdi> فقط تستطيع فتحه.',
+    tipH: 'طريقة الدخول',
+    tipT: 'موظفو إينوفكس: حساب <bdi dir="ltr">@inovex-group.com</bdi> يُدخلك تلقائياً. المستخدمون المسجلون ببريد آخر (مثل Gmail): اكتب بريدك وأدخل الرمز المكوّن من 6 أرقام الذي نرسله لك. إذا ظهرت رسالة بتعذّر فتح الملف فاستخدم نافذة خاصة.',
+    who: 'لموظفي إينوفكس والمستخدمين المسجلين.',
     foot: '© مجموعة إينوفكس · الرياض'
   };
   var EN = {}; Object.keys(AR).forEach(function (k) { EN[k] = $(k).innerHTML; });
