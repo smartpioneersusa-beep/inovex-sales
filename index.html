@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INOVEX Sales Reports</title>
+<meta name="description" content="INOVEX Sales Reports – weekly reports for INOVEX sales engineers.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#121212">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sales Reports">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{--head:#121212;--ink:#121212;--muted:#5b5f66;--line:#d9dce1;--gold:#C9A227;--silver:#D9DCE1;--card:#ffffff;--sunk:#f2f2f0}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--head);color:var(--silver)}
+  body{display:flex;flex-direction:column;min-height:100vh;font:15px/1.55 "IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif}
+  html[dir=rtl] body{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif}
+  main{flex:1;display:flex;padding:24px 16px}
+  .card{margin:auto;width:100%;max-width:400px;background:var(--card);color:var(--ink);border-radius:14px;border-top:4px solid var(--gold);padding:28px 24px;box-shadow:0 16px 48px rgba(0,0,0,.45)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .top img{width:56px;height:56px;border-radius:14px}
+  .lang{background:none;border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+  .brand{font:600 12px "IBM Plex Sans",sans-serif;letter-spacing:.22em;color:var(--muted)}
+  h1{font:600 26px/1.2 "IBM Plex Sans Condensed","IBM Plex Sans Arabic",sans-serif;margin:4px 0 6px}
+  h1 span{color:#7d6208}
+  p{margin:0 0 14px;color:var(--muted)}
+  .btn{display:block;width:100%;text-align:center;background:var(--gold);color:#121212;border:0;border-radius:8px;padding:13px 14px;font:600 15px inherit;font-family:inherit;text-decoration:none;cursor:pointer}
+  .btn:focus-visible,.lang:focus-visible,a:focus-visible{outline:2px solid #2b6cb0;outline-offset:2px}
+  .tip{margin-top:16px;padding:10px 12px;background:var(--sunk);border-radius:8px;font-size:13px;color:#3d4148}
+  .tip b{color:var(--ink)}
+  .small{margin-top:16px;font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .small a{color:#2b6cb0}
+  .spin{width:26px;height:26px;border:3px solid #e3e3e0;border-top-color:var(--gold);border-radius:50%;animation:sp .9s linear infinite;margin:6px auto 10px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  [hidden]{display:none!important}
+  footer{text-align:center;font-size:12px;color:#9a9ea5;padding:0 16px 18px}
+  footer a{color:#D9DCE1}
+  bdi{unicode-bidi:isolate}
+</style>
+</head>
+<body>
+<main>
+  <div class="card" role="main">
+    <div class="top"><img src="./icons/icon-192.png" alt="" width="56" height="56"><button class="lang" id="lang" type="button" lang="ar">العربية</button></div>
+    <div class="brand">INOVEX GROUP</div>
+    <h1 id="t">Sales Reports</h1>
+    <p id="sub">Weekly RFQs, offers, invoices, collections and customers. Due every Saturday 1:00 PM.</p>
+    <div id="choose">
+      <a class="btn" id="go" href="#"><span id="goTxt">Sign in with your INOVEX account</span></a>
+    </div>
+    <div id="wait" hidden><div class="spin"></div><p id="msg" style="text-align:center">Opening Sales Reports…</p></div>
+    <div class="tip" id="tip"><b id="tipH">Several Google accounts in this browser?</b> <span id="tipT">Open this page in a private window and sign in only with your <bdi>@inovex-group.com</bdi> account, otherwise Google may say it cannot open the file.</span></div>
+    <div class="small"><span id="who">Only <bdi>@inovex-group.com</bdi> accounts can open it.</span><a id="site" href="https://www.inovex-group.com/">inovex-group.com</a></div>
+  </div>
+</main>
+<footer><span id="foot">© INOVEX Group LLC · Riyadh</span></footer>
+<script src="./config.js"></script>
+<script>
+(function () {
+  var C = window.CASH_CONFIG || {}, $ = function (i) { return document.getElementById(i); };
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
+  var AR = {
+    t: 'تقارير المبيعات',
+    sub: 'طلبات العروض والعروض والفواتير والتحصيل والعملاء أسبوعياً. التسليم كل سبت الساعة 1:00 ظهراً.',
+    goTxt: 'تسجيل الدخول بحساب إينوفكس',
+    msg: 'جارٍ فتح تقارير المبيعات…',
+    tipH: 'هل في المتصفح عدة حسابات Google؟',
+    tipT: 'افتح هذه الصفحة في نافذة خاصة وسجّل الدخول بحساب <bdi dir="ltr">@inovex-group.com</bdi> فقط، وإلا قد يظهر Google رسالة بتعذّر فتح الملف.',
+    who: 'حسابات <bdi dir="ltr">@inovex-group.com</bdi> فقط تستطيع فتحه.',
+    foot: '© مجموعة إينوفكس · الرياض'
+  };
+  var EN = {}; Object.keys(AR).forEach(function (k) { EN[k] = $(k).innerHTML; });
+  function lang(l) {
+    var T = l === 'ar' ? AR : EN, h = document.documentElement;
+    h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr';
+    Object.keys(T).forEach(function (k) { $(k).innerHTML = T[k]; }); // fixed texts written here, no user input
+    var b = $('lang'); b.textContent = l === 'ar' ? 'English' : 'العربية'; b.lang = l === 'ar' ? 'en' : 'ar';
+    document.title = l === 'ar' ? 'تقارير المبيعات – إينوفكس' : 'INOVEX Sales Reports';
+    set('sr-portal-lang', l);
+  }
+  lang(get('sr-portal-lang') || (/^ar/i.test(navigator.language || '') ? 'ar' : 'en'));
+  $('lang').onclick = function () { lang(document.documentElement.lang === 'ar' ? 'en' : 'ar'); };
+  if (C.website) $('site').href = C.website;
+  $('go').href = C.appUrl || '#';
+  $('go').onclick = function (e) {
+    if (!C.appUrl) { e.preventDefault(); return; }
+    e.preventDefault(); $('choose').hidden = true; $('wait').hidden = false;
+    location.assign(C.appUrl);
+  };
+})();
+</script>
+</body>
+</html>
