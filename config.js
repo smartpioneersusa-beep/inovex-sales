@@ -4,5 +4,5 @@
 window.CASH_CONFIG = {
   appUrl: 'https://script.google.com/macros/s/AKfycbzArwzdpMqmPI_9Cn1wXbDtpDKHUybv2TMb0RYbxriL7NK4_Eak-OQ7FQUX4llxAA3v/exec',
   website: 'https://www.inovex-group.com/',
-  version: '1.8.0'
+  version: '1.9.0'
 };
